@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] protected Image fadeOverlay;
     [SerializeField] protected float fadeDuration = 0.5f;
     [SerializeField] protected Color fadeColor = Color.white;
+    [SerializeField] protected CameraController cameraController;
 
     private int score = 0;
 
@@ -64,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameOverSequence()
     {
+        StartCoroutine(cameraController.Shake(.15f, .4f));
+
         // Ejecutamos la animación de FadeIn para el overlay.
         float elapsed = 0f;
         while (elapsed < fadeDuration)
@@ -77,7 +80,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.25f);
         NewGame();
 
         // Ejecutamos la animación de FadeOut para el overlay.
