@@ -9,9 +9,12 @@ public class SwordController : MonoBehaviour
 
     [SerializeField] protected Camera mainCamera;
     [SerializeField] protected float minVelocity = 0.01f;
+    [SerializeField] protected float cutForce = 5f;
     [SerializeField] protected TrailRenderer trail;
 
+
     public Vector3 Direction { get; private set; }
+    public float CutForce { get { return cutForce; } }
 
     private void Awake()
     {

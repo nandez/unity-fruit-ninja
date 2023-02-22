@@ -40,7 +40,7 @@ public class SpawnController : MonoBehaviour
             var spawnPosition = new Vector3();
             spawnPosition.x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x);
             spawnPosition.y = Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y);
-            spawnPosition.z = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.z);
+            spawnPosition.z = 0f;
 
             // Seteamos la rotación de la fruta.
             var spawnRotation = Quaternion.Euler(0f, 0f, Random.Range(minAngle, maxAngle));

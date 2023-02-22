@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8411924488275471467}
   - component: {fileID: 7908935566029534610}
   - component: {fileID: 4996293924231100497}
+  - component: {fileID: -5882684722456900334}
   m_Layer: 0
   m_Name: BaseFruit
   m_TagString: Untagged
@@ -64,6 +65,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5882684722456900334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8411924488275471464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f052c65d9a1eed24c8816296d2f5364e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalState: {fileID: 8681885723367905980}
+  slicedState: {fileID: 8681885724464057821}
 --- !u!1001 &8411924487305048204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,7 +132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f9f03546e1c8a6944b8487af64b47a7f, type: 3}
       propertyPath: m_Name
-      value: fruit_02
+      value: sliced_state
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f9f03546e1c8a6944b8487af64b47a7f, type: 3}
       propertyPath: m_IsActive
@@ -198,6 +213,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 1.0000004}
   m_Center: {x: -0.00000022351742, y: 0.000000014901172, z: 0.50000024}
+--- !u!1 &8681885724464057821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f9f03546e1c8a6944b8487af64b47a7f, type: 3}
+  m_PrefabInstance: {fileID: 8411924487305048204}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8411924488356898797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -251,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2d493c671222baa4695a7d9458d00caa, type: 3}
       propertyPath: m_Name
-      value: fruit_01
+      value: normal_state
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2d493c671222baa4695a7d9458d00caa, type: 3}
       propertyPath: m_IsActive
@@ -262,5 +282,10 @@ PrefabInstance:
 --- !u!4 &8302264681218785286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2d493c671222baa4695a7d9458d00caa, type: 3}
+  m_PrefabInstance: {fileID: 8411924488356898797}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8681885723367905980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2d493c671222baa4695a7d9458d00caa, type: 3}
   m_PrefabInstance: {fileID: 8411924488356898797}
   m_PrefabAsset: {fileID: 0}
