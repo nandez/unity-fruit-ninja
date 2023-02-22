@@ -8,6 +8,7 @@ public class FruitController : MonoBehaviour
     [SerializeField] protected GameObject slicedState;
     [SerializeField] protected ParticleSystem sliceFx;
 
+    [SerializeField] protected int points = 1;
 
     private Rigidbody rb;
     private Collider col;
@@ -20,10 +21,12 @@ public class FruitController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            var swordCtrl = other.GetComponent<SwordController>();
+            var gameManager = FindObjectOfType<GameManager>();
+            gameManager.AddScore(points);
 
+            var swordCtrl = other.GetComponent<SwordController>();
             var direction = swordCtrl.Direction;
             var cutPosition = swordCtrl.transform.position;
             var cutForce = swordCtrl.CutForce;
