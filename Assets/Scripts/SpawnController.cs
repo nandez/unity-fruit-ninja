@@ -13,6 +13,10 @@ public class SpawnController : MonoBehaviour
     [SerializeField] protected float maxLifeTime = 5f;
     [SerializeField] protected List<GameObject> fruitPrefabs;
 
+    [Header("Bomb Settings")]
+    [SerializeField] [Range(0,1)] protected float bombRate = 0.05f;
+    [SerializeField] protected GameObject bombPrefab;
+
     private Collider spawnArea;
 
     void Awake()
@@ -45,12 +49,19 @@ public class SpawnController : MonoBehaviour
             // Seteamos la rotación de la fruta.
             var spawnRotation = Quaternion.Euler(0f, 0f, Random.Range(minAngle, maxAngle));
 
-            // Instanciamos la fruta y la destruimos después de un tiempo.
-            var fruit = Instantiate(fruitPrefabs[Random.Range(0, fruitPrefabs.Count)], spawnPosition, spawnRotation);
-            Destroy(fruit, maxLifeTime);
+            // Seleccionamos una fruta aleatoria.
+            var prefab = fruitPrefabs[Random.Range(0, fruitPrefabs.Count)];
+
+            // Si el número aleatorio es menor que la probabilidad de bomba, cambiamos la fruta por una bomba.
+            if(Random.value < bombRate)
+                prefab = bombPrefab;
+
+            // Instanciamos el prefab y lo destruimos después de un tiempo.
+            var element = Instantiate(prefab, spawnPosition, spawnRotation);
+            Destroy(element, maxLifeTime);
 
             // Añadimos una fuerza a la fruta para que salte.
-            fruit.GetComponent<Rigidbody>().AddForce(fruit.transform.up * Random.Range(minForce, maxForce), ForceMode.Impulse);
+            element.GetComponent<Rigidbody>().AddForce(element.transform.up * Random.Range(minForce, maxForce), ForceMode.Impulse);
 
             yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
         }
