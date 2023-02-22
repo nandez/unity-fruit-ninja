@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionSound: {fileID: 1980274126022356873}
+  wickSound: {fileID: 5957399349573135906}
 --- !u!82 &1980274126022356873
 AudioSource:
   m_ObjectHideFlags: 0

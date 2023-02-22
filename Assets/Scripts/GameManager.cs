@@ -13,24 +13,38 @@ public class GameManager : MonoBehaviour
     [SerializeField] protected float fadeDuration = 0.5f;
     [SerializeField] protected Color fadeColor = Color.white;
     [SerializeField] protected CameraController cameraController;
+    [SerializeField] protected GameObject menuUI;
+    [SerializeField] protected TextMeshProUGUI menuTitle;
 
     private int score = 0;
+    private bool isPaused = false;
+    private bool isGameOver = false;
 
     private void Start()
     {
         NewGame();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
+        {
+            menuTitle.text = "MENU";
+            isPaused = !isPaused;
+            menuUI.SetActive(isPaused);
+        }
+    }
+
     public void AddScore(int points)
     {
         score += points;
-        scoreText.text = $"SCORE: {score}";
+        scoreText.text = score.ToString();
     }
 
     public void NewGame()
     {
         score = 0;
-        scoreText.text = $"SCORE: {score}";
+        scoreText.text = score.ToString();
 
         // Habilitamos los controles y el spawner
         spawnController.enabled = true;
@@ -57,15 +71,43 @@ public class GameManager : MonoBehaviour
 
     public void OnBombExplosion()
     {
+        isGameOver = true;
+
         spawnController.enabled = false;
         swordController.enabled = false;
 
         StartCoroutine(GameOverSequence());
     }
 
+    public void OnExit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+    }
+
+    public void OnPlay()
+    {
+        isPaused = false;
+        menuUI.SetActive(isPaused);
+
+        if (isGameOver)
+        {
+            isGameOver = false;
+            NewGame();
+        }
+    }
+
     private IEnumerator GameOverSequence()
     {
-        StartCoroutine(cameraController.Shake(.15f, .4f));
+        StartCoroutine(cameraController.Shake(.1f, .3f));
+
+        // Obtenemos todas las bombas en escena y detenemos el sonido de la mecha.
+        var bombs = FindObjectsOfType<BombController>();
+        foreach (var b in bombs)
+            b.StopWickSound();
 
         // Ejecutamos la animación de FadeIn para el overlay.
         float elapsed = 0f;
@@ -81,7 +123,8 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSecondsRealtime(0.25f);
-        NewGame();
+        menuTitle.text = "GAME OVER";
+        menuUI.SetActive(true);
 
         // Ejecutamos la animación de FadeOut para el overlay.
         elapsed = 0f;
@@ -94,5 +137,7 @@ public class GameManager : MonoBehaviour
 
             yield return null;
         }
+
+        Time.timeScale = 0f;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BombController : MonoBehaviour
 {
     [SerializeField] protected AudioSource explosionSound;
+    [SerializeField] protected AudioSource wickSound;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,5 +14,10 @@ public class BombController : MonoBehaviour
             explosionSound.Play();
             FindObjectOfType<GameManager>().OnBombExplosion();
         }
+    }
+
+    public void StopWickSound()
+    {
+        wickSound.Stop();
     }
 }
