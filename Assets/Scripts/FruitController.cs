@@ -7,6 +7,7 @@ public class FruitController : MonoBehaviour
     [SerializeField] protected GameObject normalState;
     [SerializeField] protected GameObject slicedState;
     [SerializeField] protected ParticleSystem sliceFx;
+    [SerializeField] protected AudioSource sliceSound;
 
     [SerializeField] protected int points = 1;
 
@@ -38,8 +39,9 @@ public class FruitController : MonoBehaviour
             // Deshabilitamos el collider de la fruta para que no se pueda cortar dos veces.
             col.enabled = false;
 
-            // Reproducimos el efecto de corte.
+            // Reproducimos el efecto de corte y el sonido.
             sliceFx.Play();
+            sliceSound.Play();
 
             // Calculamos el ángulo de rotación de la fruta utilizando la dirección del corte y rotamos el objeto.
             var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
